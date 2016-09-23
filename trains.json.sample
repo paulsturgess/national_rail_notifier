@@ -1,0 +1,9 @@
+[
+  {
+    "from_station_code": "WAT",
+    "to_station_code": "WKM",
+    "from_station": "London Waterloo",
+    "to_station": "Wokingham",
+    "train_time": "17:27"
+  }
+]
