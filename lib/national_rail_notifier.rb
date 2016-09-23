@@ -2,7 +2,7 @@
 
 require 'date'
 require 'logger'
-require 'Twitter'
+require 'twitter'
 require_relative 'national_rail_request'
 
 class NationalRailNotifier
