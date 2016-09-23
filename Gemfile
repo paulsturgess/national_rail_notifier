@@ -8,3 +8,4 @@ gem 'json', '~> 1.8.3'
 gem 'rspec', '~> 3.5.0'
 gem 'simplecov', '~> 0.12.0', require: false
 gem 'webmock', '~> 2.1.0'
+gem 'rubocop', '~> 0.42.0'
