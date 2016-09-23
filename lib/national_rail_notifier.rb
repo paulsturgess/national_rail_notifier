@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'Date'
+require 'date'
 require 'logger'
 require 'Twitter'
 require_relative 'national_rail_request'
