@@ -1,5 +1,7 @@
 # National Rail Notifier
 
+[ ![Codeship Status for paulsturgess/national_rail_notifier](https://codeship.com/projects/5eb10540-6411-0134-11ea-7ac11de88606/status?branch=master)](https://codeship.com/projects/175514)
+
 This Ruby app will Tweet when trains are late/cancelled.
 
 I use this to notify me for the trains I get for my daily commute :)
@@ -28,8 +30,12 @@ I recommend checking the National Rail developer guidelines for fair usage.
 
 ## Tests and code coverage
 
+In the project root run:
+
 `rspec spec`
 
 ## Rubocop
+
+In the project root run:
 
 `rubocop`
