@@ -4,7 +4,7 @@ require 'json'
 require 'rubygems'
 require 'bundler/setup'
 Bundler.setup
-require 'Dotenv'
+require 'dotenv'
 Dotenv.load
 
 require_relative 'lib/national_rail_notifier'

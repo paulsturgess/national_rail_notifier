@@ -1,10 +1,10 @@
 # frozen_string_literal: true
-
 require 'date'
 require 'logger'
 require 'twitter'
 require_relative 'national_rail_request'
 
+# Checks the service status and tweets (if appropriate)
 class NationalRailNotifier
   attr_reader :options
 

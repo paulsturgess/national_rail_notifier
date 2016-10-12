@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'spec_helper'
+require 'dotenv'
 require 'national_rail_request'
 
 RSpec.describe NationalRailRequest do
@@ -57,104 +58,38 @@ RSpec.describe NationalRailRequest do
       }
     end
 
-    context 'when a train service is running' do
-      let(:response) do
-        File.read(
-          File.expand_path('../../fixtures/train.xml', __FILE__)
-        )
-      end
-
-      before do
-        stub_request(
-          :post, 'http://lite.realtime.nationalrail.co.uk/OpenLDBWS/ldb6.asmx'
-        )
-          .with(body: xml_string, headers: headers)
-          .to_return(
-            status: 200,
-            body: response,
-            headers: {}
-          )
-      end
-
-      let(:service) { request.check_service }
-
-      it 'forms the request body correctly' do
-        expect(request.send(:xml_string)).to eql(xml_string)
-      end
-
-      it 'returns a TrainService instance' do
-        expect(service).to be_a(TrainService)
-      end
-
-      it 'sets the service origin' do
-        expect(service.origin).to eql('Reading')
-      end
-
-      it 'sets the service final_destination' do
-        expect(service.final_destination).to eql('Ascot')
-      end
-
-      it 'sets the service scheduled_departure' do
-        expect(service.scheduled_departure).to eql('23:52')
-      end
-
-      it 'sets the service estimated_departure' do
-        expect(service.estimated_departure).to eql('On time')
-      end
-
-      it 'sets the service platform' do
-        expect(service.platform).to eql('1')
-      end
+    let(:response) do
+      File.read(
+        File.expand_path('../../fixtures/train.xml', __FILE__)
+      )
     end
 
-    context 'when a bus service is running' do
-      let(:response) do
-        File.read(
-          File.expand_path('../../fixtures/bus.xml', __FILE__)
+    before do
+      stub_request(
+        :post, 'http://lite.realtime.nationalrail.co.uk/OpenLDBWS/ldb6.asmx'
+      )
+        .with(body: xml_string, headers: headers)
+        .to_return(
+          status: 200,
+          body: response,
+          headers: {}
         )
-      end
+    end
 
-      before do
-        stub_request(
-          :post, 'http://lite.realtime.nationalrail.co.uk/OpenLDBWS/ldb6.asmx'
-        )
-          .with(body: xml_string, headers: headers)
-          .to_return(
-            status: 200,
-            body: response,
-            headers: {}
-          )
-      end
+    let(:service) { request.check_service }
 
-      let(:service) { request.check_service }
+    it 'forms the request body correctly' do
+      expect(request.send(:xml_string)).to eql(xml_string)
+    end
 
-      it 'forms the request body correctly' do
-        expect(request.send(:xml_string)).to eql(xml_string)
-      end
-
-      it 'returns a TrainService instance' do
-        expect(service).to be_a(BusService)
-      end
-
-      it 'sets the service origin' do
-        expect(service.origin).to eql('Reading')
-      end
-
-      it 'sets the service final_destination' do
-        expect(service.final_destination).to eql('Ascot')
-      end
-
-      it 'sets the service scheduled_departure' do
-        expect(service.scheduled_departure).to eql('23:52')
-      end
-
-      it 'sets the service estimated_departure' do
-        expect(service.estimated_departure).to eql('On time')
-      end
-
-      it 'sets the service platform' do
-        expect(service.platform).to eql('1')
-      end
+    it 'calls NationalRailRequestParser with the response_body' do
+      expect(NationalRailRequestParser).to receive(:run).with(
+        response_body: request.send(:response_body),
+        from_station: 'Reading',
+        to_station: 'Wokingham',
+        train_time: '23:52'
+      )
+      service
     end
   end
 end

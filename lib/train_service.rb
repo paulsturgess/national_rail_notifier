@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+
+# A wrapper around the train details returned from the api request
 class TrainService
   attr_accessor :origin, :final_destination, :scheduled_departure,
                 :estimated_departure, :platform, :from_station, :to_station
